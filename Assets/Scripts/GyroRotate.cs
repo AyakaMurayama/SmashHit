@@ -22,19 +22,24 @@ public class GyroRotate : MonoBehaviour
 
     private void Update()
     {
+        //transform.position += new Vector3(xk * 5f, 0);
         //this.transform.position = new Vector2(Mathf.Clamp(0, 3.0f, -3.0f), transform.position.y);//これはじゃいろといっしょにつかえない？
-        if(Input.GetMouseButtonDown(0)){
-            Debug.Log("mouseget");
-            rb.AddForce(new Vector2(0, 400f));
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Debug.Log("mouseget");
+        //    rb.AddForce(new Vector2(0, 00f));
+        //}
     }
 
     void FixedUpdate()
     {
-        //xk = Input.gyro.attitude.y;
-        //Debug.Log(xk);
-        xk = Mathf.Clamp(Input.gyro.gravity.y * gyroScale, -1.0f, 1.0f);
-        //rb.AddForce(new Vector2(xk * 5f,0));
+        Vector2 pos = transform.position;
+        xk = Input.gyro.attitude.y;
+        Debug.Log(xk);
+        //xk = Mathf.Clamp(Input.gyro.gravity.y * gyroScale, -1.0f, 1.0f);
+        rb.AddForce(new Vector2(xk * 5f, 0));
+        transform.position = new Vector2(Mathf.Clamp(pos.x, -2.5f, 2.5f), pos.y);//聞いてるけどそっちに行きすぎてる感
+
 
     }
 }

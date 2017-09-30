@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody2D rb;
     //private Material bounce;//ここあとで聞く
     bool touch = false;
+    bool ink = false;
 
     // Use this for initialization
     void Start()
@@ -17,49 +18,58 @@ public class PlayerScript : MonoBehaviour
 
         ThisSprite = this.GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-		//rrb = this.GetComponent<Rigidbody2D>().mass;重さ
-		//rb.bodyType = RigidbodyType2D.Dynamic;typeと普通のは違う
-		//srb.drag = 3f;//これで空気抵抗とってる　
-	}
+        //rrb = this.GetComponent<Rigidbody2D>().mass;重さ
+        //rb.bodyType = RigidbodyType2D.Dynamic;typeと普通のは違う
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (touch == true)//ここの必要性あんまり案じられない
+        if (touch == true)//ここの必要性あんまり案じられない　ぶつかったら一回だけにしたい
         {
-            if (Input.GetMouseButtonDown(0))//ぶつかってるときだったらいつもより跳ねる
+            if (Input.GetMouseButtonDown(0))
             {
-                rb.AddForce(new Vector2(0, 100f));
+                rb.AddForce(new Vector2(0, 300f));
                 touch = false;
             }
         }
+        if (ink == true && rb.drag >= 0.05)
+        {
+            rb.drag -= 0.01f * Time.deltaTime; //ここで排出している予定　deltatimeよりほんとは距離でとりたい
+            //バウンスの値を型にいれるほうほうがわからない
+        }
+
+        Debug.Log(rb.drag);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)//まずぶつかる
     {
         touch = true;
         Debug.Log("ook");
-		if (collision.gameObject.CompareTag("ink"))
-		{
-			collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-			Debug.Log("getink");
-			SpriteRenderer InkSprite = collision.gameObject.GetComponent<SpriteRenderer>();
-			Debug.Log(InkSprite.color);
-			ThisSprite.color = InkSprite.color;
-            GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
-			//あとでここに排出書き足す
-		}
+        if (collision.gameObject.CompareTag("ink"))
+        {
+            ink = true;
+            collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            Debug.Log("getink");
+            SpriteRenderer InkSprite = collision.gameObject.GetComponent<SpriteRenderer>();
+            Debug.Log(InkSprite.color);
+            ThisSprite.color = InkSprite.color;
+            rb.drag = 0.2f;//これで空気抵抗とってる　
+            //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
+            //あとでここに排出書き足す→べつ
+
+        }
     }
 
 
     private void OnCollisionStay(Collision collision)
     {
         if (Input.GetMouseButtonDown(0))//ぶつかってるときだったらいつもより跳ねる
-		{
-			rb.AddForce(new Vector2(0, 100f));
-		}
+        {
+            rb.AddForce(new Vector2(0, 300f));
+        }
 
-	}
+    }
 }
 //    }
 
