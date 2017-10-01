@@ -22,6 +22,7 @@ public class GyroRotate : MonoBehaviour
 
     private void Update()
     {
+
         //transform.position += new Vector3(xk * 5f, 0);
         //this.transform.position = new Vector2(Mathf.Clamp(0, 3.0f, -3.0f), transform.position.y);//これはじゃいろといっしょにつかえない？
         //if (Input.GetMouseButtonDown(0))
@@ -43,7 +44,7 @@ public class GyroRotate : MonoBehaviour
             xk -= 360f;
         }
         rb.AddForce(new Vector2(xk * 0.2f, 0));
-        transform.position = new Vector2(Mathf.Clamp(pos.x, -0.3f, 0.3f), pos.y);//聞いてるけどそっちに行きすぎてる感
+        transform.position = new Vector2(Mathf.Clamp(pos.x, -0.3f, 0.3f), pos.y);
 
 
     }

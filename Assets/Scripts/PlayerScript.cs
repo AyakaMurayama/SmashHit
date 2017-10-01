@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour
     //private Material bounce;//ここあとで聞く
     bool touch = false;
     bool ink = false;
+    float rot;
 
     // Use this for initialization
     void Start()
@@ -25,6 +26,22 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 prevPos = GameObject.Find("testplayer").transform.position;
+
+        float x = this.transform.position.x - prevPos.x;
+        float y = this.transform.position.y - prevPos.y;
+
+        Vector2 vec = new Vector2(x, y).normalized;
+
+        float rot = Mathf.Atan2(vec.y, vec.x) * 180 / Mathf.PI;
+        if (rot > 180) rot -= 360;
+        if (rot < -180) rot += 360;
+
+        Debug.Log("Angle = " + rot);
+
+        prevPos = this.transform.position;
+
+
         if (touch == true)//ここの必要性あんまり感じられない　ぶつかったら一回だけにしたい
         {
             if (Input.GetMouseButtonDown(0))
@@ -46,7 +63,8 @@ public class PlayerScript : MonoBehaviour
     {
         touch = true;
         Debug.Log("ook");
-        if (rb.velocity.magnitude >= 0.0f)//Returns the length of this vector (Read Only).微妙　上向きに行ってる時はかけたくない
+
+        if (rot >= 0.0f)//Returns the length of this vector (Read Only).微妙　上向きに行ってる時はかけたくない
         {
             rb.AddForce(new Vector2(0, 500f));
         }
