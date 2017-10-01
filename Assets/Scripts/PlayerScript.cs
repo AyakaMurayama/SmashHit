@@ -25,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (touch == true)//ここの必要性あんまり案じられない　ぶつかったら一回だけにしたい
+        if (touch == true)//ここの必要性あんまり感じられない　ぶつかったら一回だけにしたい
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -46,6 +46,10 @@ public class PlayerScript : MonoBehaviour
     {
         touch = true;
         Debug.Log("ook");
+        if (rb.velocity.magnitude >= 0.0f)//Returns the length of this vector (Read Only).微妙　上向きに行ってる時はかけたくない
+        {
+            rb.AddForce(new Vector2(0, 500f));
+        }
         if (collision.gameObject.CompareTag("ink"))
         {
             ink = true;
