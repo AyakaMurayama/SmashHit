@@ -68,19 +68,19 @@ public class PlayerScript : MonoBehaviour
         {
             rb.AddForce(new Vector2(0, 500f));
         }
-        if (collision.gameObject.CompareTag("ink"))
-        {
-            ink = true;
-            collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-            Debug.Log("getink");
-            SpriteRenderer InkSprite = collision.gameObject.GetComponent<SpriteRenderer>();
-            Debug.Log(InkSprite.color);
-            ThisSprite.color = InkSprite.color;
-            rb.drag = 0.2f;//これで空気抵抗とってる　
-            //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
-            //あとでここに排出書き足す→べつ
+        //if (collision.gameObject.CompareTag("ink"))
+        //{
+        //ink = true;
+        //collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+        //Debug.Log("getink");
+        //SpriteRenderer InkSprite = collision.gameObject.GetComponent<SpriteRenderer>();
+        //Debug.Log(InkSprite.color);
+        //ThisSprite.color = InkSprite.color;
+        rb.drag = 0.2f;//これで空気抵抗とってる　
+                       //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
+                       //あとでここに排出書き足す→べつ
+                       //ぶつかったときの処理をどこでかくか微妙
 
-        }
     }
 
 
