@@ -44,7 +44,7 @@ public class GyroRotate : MonoBehaviour
             xk -= 360f;
         }
         rb.AddForce(new Vector2(xk * 0.2f, 0));
-        transform.position = new Vector2(Mathf.Clamp(pos.x, -1.0f, 1.0f), pos.y);
+        transform.position = new Vector2(Mathf.Clamp(pos.x, -2.5f, 2.5f), pos.y);
 
 
     }
