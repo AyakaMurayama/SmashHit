@@ -15,8 +15,11 @@ public class PlayerScript : MonoBehaviour
     float red, green, blue;
 
     Material playermaterial;
+    Material inkmaterial;
 
     public GameObject player;
+
+
 
     // Use this for initialization
     void Start()
@@ -28,6 +31,13 @@ public class PlayerScript : MonoBehaviour
         //rb.bodyType = RigidbodyType2D.Dynamic;typeと普通のは違う
         playermaterial = GetComponent<TrailRenderer>().material;
         player = this.gameObject;
+
+        GameObject colorss = gameObject.transform.Find("color").gameObject;
+
+        inkmaterial = colorss.GetComponent<CollisionPainter>().GetComponent<MeshRenderer>().material.color;
+        //なおす！
+
+        //GetComponent<MeshRenderer>().brush.Color;
     }
 
     // Update is called once per frame
@@ -47,9 +57,6 @@ public class PlayerScript : MonoBehaviour
         //Debug.Log("Angle = " + rot);
 
         prevPos = this.transform.position;
-
-        //playermaterial.color = ThisSprite.color;
-        //playermaterial.color = ThisSprite.color;
 
 
         if (touch == true)//ここの必要性あんまり感じられない　ぶつかったら一回だけにしたい
