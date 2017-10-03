@@ -17,6 +17,7 @@ public class RandomCriate : MonoBehaviour
     public GameObject box3;
     float player;
 
+    int num;
 
     // Use this for initialization
     void Start()
@@ -35,6 +36,24 @@ public class RandomCriate : MonoBehaviour
 
             Instantiate(objselect[number], objpos, transform.rotation, parent);
         }
+
+        num = Random.Range(1, 15); //回す数
+        List<int> tempNums = new List<int>() { -2, -1, 1, 2 }; //ガラガラの中身
+
+        for (int i = 0; i < num; i++)
+        {
+            var parent = GameObject.Find("1").transform;
+            number = Random.Range(0, objselect.Length);
+
+            int randomIndex = Random.Range(0, tempNums.Count);
+            Debug.Log(tempNums[randomIndex]);
+            tempNums.Remove(randomIndex);
+
+            objpos = new Vector2((float)tempNums, objy[randomy]);
+            Instantiate(objselect[number], objpos, transform.rotation, parent);
+        }
+
+
         for (int i = 1; i <= 10; i++)
         {
             var parent = GameObject.Find("2").transform;
@@ -68,8 +87,21 @@ public class RandomCriate : MonoBehaviour
 //Instantiate(prefab, transform.position, transform.rotation); //自身と同じ位置同じ回転度でprefabのクローンを作成
 
 
+
+
+
 //Enumerable.Range(0, 49).OrderBy(n => Guid.NewGuid()).Take(5);
 //３つのうち１つ選ぶ
 
 //高さとっていくらより高くなったら1をけすとか
 //他スクリプトから高さゲット
+
+//num = Random.Range(1, 4); //回す数
+//        List<int> tempNums = new List<int>() { 0, 1, 2 }; //ガラガラの中身
+
+//        for (int i = 0; i<num; i++) {
+//            int randomIndex = Random.Range(0, tempNums.Count);
+//Debug.Log(tempNums[randomIndex]);
+//    tempNums.Remove(randomIndex);
+//}
+
