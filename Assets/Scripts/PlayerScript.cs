@@ -55,7 +55,7 @@ public class PlayerScript : MonoBehaviour
         {
             rb.drag -= 0.01f * Time.deltaTime; //ここで排出している予定　deltatimeよりほんとは距離でとりたい
             //バウンスの値を型にいれるほうほうがわからない
-            ThisSprite.color += new Color(red - 0.1f, green - 0.1f, blue - 0.1f);
+            ThisSprite.color += new Color(red + 0.5f / 255f, green + 0.5f / 255f, blue + 0.5f / 255f);
             //Debug.Log(ThisSprite.color);
         }
 
@@ -79,12 +79,14 @@ public class PlayerScript : MonoBehaviour
             SpriteRenderer InkSprite = collision.gameObject.GetComponent<SpriteRenderer>();
             //Debug.Log(InkSprite.color);
             ThisSprite.color = InkSprite.color;
-            red = GetComponent<SpriteRenderer>().color.r;
-            green = GetComponent<SpriteRenderer>().color.g;
-            blue = GetComponent<SpriteRenderer>().color.b;
-            Debug.Log(red);
-            Debug.Log(green);
-            Debug.Log(blue);
+            Debug.Log(ThisSprite.color);
+
+            //red = GetComponent<SpriteRenderer>().color.r * 255f;
+            //green = GetComponent<SpriteRenderer>().color.g * 255f;
+            //blue = GetComponent<SpriteRenderer>().color.b * 255f;
+            //Debug.Log(red);
+            //Debug.Log(green);
+            //Debug.Log(blue);
             rb.drag = 0.2f;//これで空気抵抗とってる　
                            //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
                            //あとでここに排出書き足す→べつ
