@@ -61,8 +61,7 @@ public class PlayerScript : MonoBehaviour
 
         //Debug.Log(rb.drag);
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)//まずぶつかる
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         touch = true;
         Debug.Log("ook");
@@ -71,12 +70,19 @@ public class PlayerScript : MonoBehaviour
         {
             rb.AddForce(new Vector2(0, 500f));
         }
-        if (collision.gameObject.CompareTag("ink"))
+    }
+
+
+
+    private void OnTriggerEnter2D(Collider2D other)//まずぶつかる
+    {
+
+        if (other.gameObject.CompareTag("ink"))
         {
             ink = true;
-            collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            other.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             Debug.Log("getink");
-            SpriteRenderer InkSprite = collision.gameObject.GetComponent<SpriteRenderer>();
+            SpriteRenderer InkSprite = other.gameObject.GetComponent<SpriteRenderer>();
             //Debug.Log(InkSprite.color);
             ThisSprite.color = InkSprite.color;
             Debug.Log(ThisSprite.color);
