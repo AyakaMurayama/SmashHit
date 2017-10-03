@@ -21,9 +21,12 @@ public class ColorControl : MonoBehaviour
     void Start()
     {
         inkSprite.color = new Color(Random.value, Random.value, Random.value, 1.0f);//色スクライトにランダムに色をつける
+        Debug.Log(inkSprite.color);
         ink = this.gameObject;
         inkcolor = ink.GetComponent<Renderer>();
+        mycolor = GameObject.Find("pcolor").GetComponent<Renderer>();
         inkcolor.material.color = inkSprite.color;//箱に渡す
+        Debug.Log(inkcolor);
 
     }
 
@@ -41,6 +44,7 @@ public class ColorControl : MonoBehaviour
         {
             mycolor = collision.gameObject.GetComponent<Renderer>();//プレイヤー３dのいろをぶつかったものの色に変えて
             playerSprite.color = mycolor.material.color;//そのいろをスプライトの自分にあげる
+
         }
     }
 }

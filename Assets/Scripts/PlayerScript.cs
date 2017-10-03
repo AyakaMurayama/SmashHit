@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     bool touch = false;
     bool ink = false;
     float rot;
+    float red, green, blue;
 
     // Use this for initialization
     void Start()
@@ -37,7 +38,7 @@ public class PlayerScript : MonoBehaviour
         if (rot > 180) rot -= 360;
         if (rot < -180) rot += 360;
 
-        Debug.Log("Angle = " + rot);
+        //Debug.Log("Angle = " + rot);
 
         prevPos = this.transform.position;
 
@@ -54,9 +55,11 @@ public class PlayerScript : MonoBehaviour
         {
             rb.drag -= 0.01f * Time.deltaTime; //ここで排出している予定　deltatimeよりほんとは距離でとりたい
             //バウンスの値を型にいれるほうほうがわからない
+            ThisSprite.color += new Color(red - 0.1f, green - 0.1f, blue - 0.1f);
+            //Debug.Log(ThisSprite.color);
         }
 
-        Debug.Log(rb.drag);
+        //Debug.Log(rb.drag);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)//まずぶつかる
@@ -68,19 +71,26 @@ public class PlayerScript : MonoBehaviour
         {
             rb.AddForce(new Vector2(0, 500f));
         }
-        //if (collision.gameObject.CompareTag("ink"))
-        //{
-        //ink = true;
-        //collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        //Debug.Log("getink");
-        //SpriteRenderer InkSprite = collision.gameObject.GetComponent<SpriteRenderer>();
-        //Debug.Log(InkSprite.color);
-        //ThisSprite.color = InkSprite.color;
-        rb.drag = 0.2f;//これで空気抵抗とってる　
-                       //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
-                       //あとでここに排出書き足す→べつ
-                       //ぶつかったときの処理をどこでかくか微妙
+        if (collision.gameObject.CompareTag("ink"))
+        {
+            ink = true;
+            collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            Debug.Log("getink");
+            SpriteRenderer InkSprite = collision.gameObject.GetComponent<SpriteRenderer>();
+            //Debug.Log(InkSprite.color);
+            ThisSprite.color = InkSprite.color;
+            red = GetComponent<SpriteRenderer>().color.r;
+            green = GetComponent<SpriteRenderer>().color.g;
+            blue = GetComponent<SpriteRenderer>().color.b;
+            Debug.Log(red);
+            Debug.Log(green);
+            Debug.Log(blue);
+            rb.drag = 0.2f;//これで空気抵抗とってる　
+                           //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
+                           //あとでここに排出書き足す→べつ
+                           //ぶつかったときの処理をどこでかくか微妙
 
+        }
     }
 
 

@@ -37,13 +37,14 @@ public class GyroRotate : MonoBehaviour
         Vector2 pos = transform.position;
         xk = Input.gyro.attitude.eulerAngles.y;//オイラー角に入力？
                                                //Quaternion.yは
-        Debug.Log(xk);
+
+        //Debug.Log(xk);
         //xk = Mathf.Clamp(Input.gyro.gravity.y * gyroScale, -1.0f, 1.0f);
         if (xk > 180f)
         {
             xk -= 360f;
         }
-        rb.AddForce(new Vector2(xk * 0.2f, 0));
+        rb.AddForce(new Vector2(xk * 0.1f, 0));
         transform.position = new Vector2(Mathf.Clamp(pos.x, -2.5f, 2.5f), pos.y);
 
 
