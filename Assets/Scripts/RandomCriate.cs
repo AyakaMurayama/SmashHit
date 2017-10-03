@@ -17,6 +17,7 @@ public class RandomCriate : MonoBehaviour
     public GameObject box3;
     float player;
 
+
     // Use this for initialization
     void Start()
     {

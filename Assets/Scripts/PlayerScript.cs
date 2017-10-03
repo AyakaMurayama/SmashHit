@@ -14,6 +14,10 @@ public class PlayerScript : MonoBehaviour
     float rot;
     float red, green, blue;
 
+    Material playermaterial;
+
+    public GameObject player;
+
     // Use this for initialization
     void Start()
     {
@@ -22,6 +26,8 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //rrb = this.GetComponent<Rigidbody2D>().mass;重さ
         //rb.bodyType = RigidbodyType2D.Dynamic;typeと普通のは違う
+        playermaterial = GetComponent<TrailRenderer>().material;
+        player = this.gameObject;
     }
 
     // Update is called once per frame
@@ -41,6 +47,9 @@ public class PlayerScript : MonoBehaviour
         //Debug.Log("Angle = " + rot);
 
         prevPos = this.transform.position;
+
+        //playermaterial.color = ThisSprite.color;
+        //playermaterial.color = ThisSprite.color;
 
 
         if (touch == true)//ここの必要性あんまり感じられない　ぶつかったら一回だけにしたい
@@ -80,11 +89,13 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.CompareTag("ink"))
         {
             ink = true;
-            other.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             Debug.Log("getink");
+            player.AddComponent<TrailRenderer>();
+
             SpriteRenderer InkSprite = other.gameObject.GetComponent<SpriteRenderer>();
-            //Debug.Log(InkSprite.color);
+            Debug.Log(InkSprite.color);
             ThisSprite.color = InkSprite.color;
+            playermaterial.color = ThisSprite.color;
             Debug.Log(ThisSprite.color);
 
             //red = GetComponent<SpriteRenderer>().color.r * 255f;
