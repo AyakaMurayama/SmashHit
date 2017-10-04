@@ -6,7 +6,7 @@ namespace Es.InkPainter.Sample
     public class CollisionPainter : MonoBehaviour
     {
         [SerializeField]
-        private Brush brush = null;
+        public Brush brush = null;
 
         [SerializeField]
         private int wait = 3;

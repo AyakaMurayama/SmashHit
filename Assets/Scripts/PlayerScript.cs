@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Es.InkPainter.Sample;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class PlayerScript : MonoBehaviour
 
         GameObject colorss = gameObject.transform.Find("color").gameObject;
 
-        inkmaterial = colorss.GetComponent<CollisionPainter>().GetComponent<MeshRenderer>().material.color;
+        //inkmaterial = colorss.GetComponent<CollisionPainter>().GetComponent<MeshRenderer>().material.color;
         //なおす！
 
         //GetComponent<MeshRenderer>().brush.Color;
@@ -100,6 +101,7 @@ public class PlayerScript : MonoBehaviour
             player.AddComponent<TrailRenderer>();
 
             SpriteRenderer InkSprite = other.gameObject.GetComponent<SpriteRenderer>();
+            GetComponentInChildren<CollisionPainter>().brush.Color = InkSprite.color;
             Debug.Log(InkSprite.color);
             ThisSprite.color = InkSprite.color;
             playermaterial.color = ThisSprite.color;
