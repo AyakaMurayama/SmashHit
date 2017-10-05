@@ -27,7 +27,6 @@ public class RandomCriate : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         //for (int i = 1; i <= 10; i++)
         //{
         //    var parent = GameObject.Find("1").transform;
@@ -128,6 +127,8 @@ public class RandomCriate : MonoBehaviour
             box1.SetActive(false);
         }
     }
+
+
 }
 
 

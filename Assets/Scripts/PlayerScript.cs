@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Es.InkPainter.Sample;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -14,13 +15,16 @@ public class PlayerScript : MonoBehaviour
     bool ink = false;
     float rot;
     float red, green, blue;
+    float inktime = 15f;
+
+    int count = 0;
 
     Material playermaterial;
     Material inkmaterial;
 
     public GameObject player;
 
-    float inktime = 15f;
+    public Text stagetex = null;
 
     // Use this for initialization
     void Start()
@@ -36,6 +40,9 @@ public class PlayerScript : MonoBehaviour
         GameObject colorss = gameObject.transform.Find("color").gameObject;
 
         GetComponentInChildren<CollisionPainter>().brush.Color = new Color(1f, 1f, 1f, 0);
+
+        stagetex = GameObject.Find("stagetx").GetComponent<Text>();
+        stagetex.text = "Stage:0";
 
         //inkmaterial = colorss.GetComponent<CollisionPainter>().GetComponent<MeshRenderer>().material.color;
         //なおす！
@@ -83,6 +90,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Debug.Log(rb.drag);
+        stagetex.text = "Stage:" + count.ToString();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -126,6 +134,11 @@ public class PlayerScript : MonoBehaviour
                            //あとでここに排出書き足す→べつ
                            //ぶつかったときの処理をどこでかくか微妙
 
+        }
+
+        if (other.gameObject.CompareTag("level"))
+        {
+            count++;
         }
     }
 
