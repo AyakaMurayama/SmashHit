@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject player;
 
-
+    float inktime = 15f;
 
     // Use this for initialization
     void Start()
@@ -34,6 +34,8 @@ public class PlayerScript : MonoBehaviour
         player = this.gameObject;
 
         GameObject colorss = gameObject.transform.Find("color").gameObject;
+
+        GetComponentInChildren<CollisionPainter>().enabled = false;
 
         //inkmaterial = colorss.GetComponent<CollisionPainter>().GetComponent<MeshRenderer>().material.color;
         //なおす！
@@ -74,6 +76,10 @@ public class PlayerScript : MonoBehaviour
             //バウンスの値を型にいれるほうほうがわからない
             ThisSprite.color += new Color(red + 0.5f / 255f, green + 0.5f / 255f, blue + 0.5f / 255f);
             //Debug.Log(ThisSprite.color);
+            if (ThisSprite.color.r <= 0.8f || ThisSprite.color.g <= 0.8f || ThisSprite.color.b <= 0.8f)
+            {
+                GetComponentInChildren<CollisionPainter>().enabled = false;
+            }
         }
 
         //Debug.Log(rb.drag);
@@ -97,22 +103,24 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.CompareTag("ink"))
         {
             ink = true;
+            GetComponentInChildren<CollisionPainter>().enabled = true;
             Debug.Log("getink");
             player.AddComponent<TrailRenderer>();
 
             SpriteRenderer InkSprite = other.gameObject.GetComponent<SpriteRenderer>();
-            GetComponentInChildren<CollisionPainter>().brush.Color = InkSprite.color;
             Debug.Log(InkSprite.color);
             ThisSprite.color = InkSprite.color;
             playermaterial.color = ThisSprite.color;
+
+            GetComponentInChildren<CollisionPainter>().brush.Color = ThisSprite.color;
             Debug.Log(ThisSprite.color);
 
-            //red = GetComponent<SpriteRenderer>().color.r * 255f;
-            //green = GetComponent<SpriteRenderer>().color.g * 255f;
-            //blue = GetComponent<SpriteRenderer>().color.b * 255f;
-            //Debug.Log(red);
-            //Debug.Log(green);
-            //Debug.Log(blue);
+            //if(inktime >= 0){
+            //for (int i = 15; i > 0; i--)
+            //{
+            //    GetComponentInChildren<CollisionPainter>().brush.Color = ThisSprite.color;
+
+            //}インク排出してその色も出したかった
             rb.drag = 0.2f;//これで空気抵抗とってる　
                            //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
                            //あとでここに排出書き足す→べつ
