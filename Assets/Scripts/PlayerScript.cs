@@ -121,7 +121,7 @@ public class PlayerScript : MonoBehaviour
             //    GetComponentInChildren<CollisionPainter>().brush.Color = ThisSprite.color;
 
             //}インク排出してその色も出したかった
-            rb.drag = 0.2f;//これで空気抵抗とってる　
+            rb.drag = 0.3f;//これで空気抵抗とってる　
                            //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
                            //あとでここに排出書き足す→べつ
                            //ぶつかったときの処理をどこでかくか微妙

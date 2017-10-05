@@ -5,19 +5,24 @@ using UnityEngine;
 public class RandomCriate : MonoBehaviour
 {
     float[] objy = { 8f, 12f, 16f, 20f, 24f, 28f, 32f, 36f };
+    float[] levely = { 9f, 17f, 25f, 33f, };
+
     //float[] objx = { -2.83f, -1.0f, 1.0f, 2.83f };
     int randomy, randomx1;
     float randomx2;
     public GameObject[] objselect;
-    int number;
-    Vector2 objpos;
+    public GameObject[] ink;
+    public GameObject level;
+
+    int number, numberink;
+    Vector2 objpos, inkpos, levelpos;
 
     public GameObject box1;
     public GameObject box2;
     public GameObject box3;
     float player;
 
-    int num;
+    int num, numink;
 
     // Use this for initialization
     void Start()
@@ -46,30 +51,56 @@ public class RandomCriate : MonoBehaviour
         {
             if (i <= 4)
             {
-                var parent = GameObject.Find("1").transform;
-                number = Random.Range(0, objselect.Length);
-                int randomIndex = Random.Range(0, tempNumsx.Count);
-                Debug.Log(tempNumsx[randomIndex]);
-
-
-                objpos = new Vector2(tempNumsx[randomIndex], objy[i]);
-                tempNumsx.Remove(randomIndex);
-                Instantiate(objselect[number], objpos, transform.rotation, parent);
+                for (int j = 0; j < 2; j++)
+                {
+                    var parent = GameObject.Find("1").transform;
+                    number = Random.Range(0, objselect.Length);
+                    int randomIndex = Random.Range(0, tempNumsx.Count);
+                    Debug.Log(tempNumsx[randomIndex]);
+                    objpos = new Vector2(tempNumsx[randomIndex], objy[i]);
+                    tempNumsx.Remove(randomIndex);
+                    Instantiate(objselect[number], objpos, transform.rotation, parent);
+                }
             }
             else if (i >= 5 && i <= 8)
             {
-                var parent = GameObject.Find("2").transform;
-                number = Random.Range(0, objselect.Length);
-                randomy = Random.Range(0, 4);
-                int randomIndex = Random.Range(0, tempNumsx.Count);
-                Debug.Log(tempNumsx[randomIndex]);
+                for (int j = 0; j < 2; j++)
+                {
+                    var parent = GameObject.Find("2").transform;
+                    number = Random.Range(0, objselect.Length);
+                    randomy = Random.Range(0, 4);
+                    int randomIndex = Random.Range(0, tempNumsx.Count);
+                    Debug.Log(tempNumsx[randomIndex]);
 
 
-                objpos = new Vector2(tempNumsx[randomIndex], objy[i]);
-                tempNumsx.Remove(randomIndex);
-                Instantiate(objselect[number], objpos, transform.rotation, parent);
+                    objpos = new Vector2(tempNumsx[randomIndex], objy[i]);
+                    tempNumsx.Remove(randomIndex);
+                    Instantiate(objselect[number], objpos, transform.rotation, parent);
+                }
             }
         }
+        //numink = Random.Range(1, 8); //回す数
+        List<float> inkMunsy = new List<float>() { 10f, 14f, 28f, 22f, 26f, 30f, 34f, 38f };
+        List<float> inkMunsx = new List<float>() { -2.5f, -2f, -1.5f, -1.0f, 2.5f, 2f, 1.5f, 1.0f };
+        for (int i = 0; i < 8; i++)
+        {
+            int randomIndex = Random.Range(0, inkMunsy.Count);
+            numberink = Random.Range(0, ink.Length);
+            Debug.Log(inkMunsy[randomIndex]);
+            inkMunsy.Remove(randomIndex);
+            inkMunsy.Remove(randomIndex);
+            inkpos = new Vector2(inkMunsx[randomIndex], inkMunsy[randomIndex]);
+            Instantiate(ink[numberink], inkpos, transform.rotation);
+
+        }
+
+        for (int k = 0; k < levely.Length; k++)
+        {
+            levelpos = new Vector2(0f, levely[k]);
+            Instantiate(level, levelpos, transform.rotation);
+        }
+
+
 
 
         //for (int i = 1; i <= 10; i++)
