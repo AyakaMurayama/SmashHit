@@ -35,7 +35,7 @@ public class PlayerScript : MonoBehaviour
 
         GameObject colorss = gameObject.transform.Find("color").gameObject;
 
-        GetComponentInChildren<CollisionPainter>().enabled = false;
+        GetComponentInChildren<CollisionPainter>().brush.Color = new Color(1f, 1f, 1f, 0);
 
         //inkmaterial = colorss.GetComponent<CollisionPainter>().GetComponent<MeshRenderer>().material.color;
         //なおす！
@@ -74,12 +74,12 @@ public class PlayerScript : MonoBehaviour
         {
             rb.drag -= 0.01f * Time.deltaTime; //ここで排出している予定　deltatimeよりほんとは距離でとりたい
             //バウンスの値を型にいれるほうほうがわからない
-            ThisSprite.color += new Color(red + 0.5f / 255f, green + 0.5f / 255f, blue + 0.5f / 255f);
+            ThisSprite.color += new Color(red + 0.5f / 255f, green + 0.5f / 255f, blue + 0.5f / 255f, 1);
             //Debug.Log(ThisSprite.color);
-            if (ThisSprite.color.r <= 0.8f || ThisSprite.color.g <= 0.8f || ThisSprite.color.b <= 0.8f)
-            {
-                GetComponentInChildren<CollisionPainter>().enabled = false;
-            }
+            //if (ThisSprite.color.r >= 0.01f || ThisSprite.color.g >= 0.01f || ThisSprite.color.b >= 0.01f)
+            //{
+            //    GetComponentInChildren<CollisionPainter>().brush.Color = new Color(1, 1, 1, 0);
+            //}
         }
 
         //Debug.Log(rb.drag);
@@ -103,7 +103,7 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.CompareTag("ink"))
         {
             ink = true;
-            GetComponentInChildren<CollisionPainter>().enabled = true;
+            //GetComponentInChildren<CollisionPainter>().enabled = true;
             Debug.Log("getink");
             player.AddComponent<TrailRenderer>();
 
