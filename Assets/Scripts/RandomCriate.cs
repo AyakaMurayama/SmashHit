@@ -5,7 +5,7 @@ using UnityEngine;
 public class RandomCriate : MonoBehaviour
 {
     float[] objy = { 8f, 12f, 16f, 20f, 24f, 28f, 32f, 36f };
-    float[] objx = { -2.83f, -1.0f, 1.0f, 2.83f };
+    //float[] objx = { -2.83f, -1.0f, 1.0f, 2.83f };
     int randomy, randomx1;
     float randomx2;
     public GameObject[] objselect;
@@ -37,21 +37,38 @@ public class RandomCriate : MonoBehaviour
         //    Instantiate(objselect[number], objpos, transform.rotation, parent);
         //}
 
-        num = Random.Range(1, 15); //回す数
-        List<float> tempNums = new List<float>() { -2f, -1f, 1f, 2f }; //ガラガラの中身
+        //num = Random.Range(1, 8); //回す数
+        List<float> tempNumsx = new List<float>() { -2f, -1f, 1f, 2f }; //ガラガラの中身
+        //List<float> tempNumsy = new List<float>() { 8f, 12f, 16f, 20f, 24f, 28f, 32f, 36f }; //ガラガラの中身
 
-        for (int i = 0; i < num; i++)
+
+        for (int i = 0; i < objy.Length; i++)
         {
-            var parent = GameObject.Find("1").transform;
-            number = Random.Range(0, objselect.Length);
-            randomy = Random.Range(0, 4);
-            int randomIndex = Random.Range(0, tempNums.Count);
-            Debug.Log(tempNums[randomIndex]);
+            if (i <= 4)
+            {
+                var parent = GameObject.Find("1").transform;
+                number = Random.Range(0, objselect.Length);
+                int randomIndex = Random.Range(0, tempNumsx.Count);
+                Debug.Log(tempNumsx[randomIndex]);
 
 
-            objpos = new Vector2(tempNums[randomIndex], objy[randomy]);
-            tempNums.Remove(randomIndex);
-            Instantiate(objselect[number], objpos, transform.rotation, parent);
+                objpos = new Vector2(tempNumsx[randomIndex], objy[i]);
+                tempNumsx.Remove(randomIndex);
+                Instantiate(objselect[number], objpos, transform.rotation, parent);
+            }
+            else if (i >= 5 && i <= 8)
+            {
+                var parent = GameObject.Find("2").transform;
+                number = Random.Range(0, objselect.Length);
+                randomy = Random.Range(0, 4);
+                int randomIndex = Random.Range(0, tempNumsx.Count);
+                Debug.Log(tempNumsx[randomIndex]);
+
+
+                objpos = new Vector2(tempNumsx[randomIndex], objy[i]);
+                tempNumsx.Remove(randomIndex);
+                Instantiate(objselect[number], objpos, transform.rotation, parent);
+            }
         }
 
 
