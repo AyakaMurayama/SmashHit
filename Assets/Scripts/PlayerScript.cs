@@ -19,6 +19,8 @@ public class PlayerScript : MonoBehaviour
 
     int count = 0;
 
+    public float force = 500f;
+
     Material playermaterial;
     Material inkmaterial;
 
@@ -77,11 +79,12 @@ public class PlayerScript : MonoBehaviour
                 touch = false;
             }
         }
-        if (ink == true && rb.drag >= 0.05)
+        if (ink == true && rb.drag >= 0.05f && force <= 500f)
         {
-            rb.drag -= 0.01f * Time.deltaTime; //ここで排出している予定　deltatimeよりほんとは距離でとりたい
+            rb.drag -= 0.03f * Time.deltaTime; //ここで排出している予定　deltatimeよりほんとは距離でとりたい
             //バウンスの値を型にいれるほうほうがわからない
             ThisSprite.color += new Color(red + 0.5f / 255f, green + 0.5f / 255f, blue + 0.5f / 255f, 1);
+            force += 1f;
             //Debug.Log(ThisSprite.color);
             //if (ThisSprite.color.r >= 0.01f || ThisSprite.color.g >= 0.01f || ThisSprite.color.b >= 0.01f)
             //{
@@ -99,7 +102,7 @@ public class PlayerScript : MonoBehaviour
 
         if (rot >= 0.0f)//Returns the length of this vector (Read Only).微妙　上向きに行ってる時はかけたくない
         {
-            rb.AddForce(new Vector2(0, 500f));
+            rb.AddForce(new Vector2(0, force));
         }
     }
 
@@ -129,10 +132,13 @@ public class PlayerScript : MonoBehaviour
             //    GetComponentInChildren<CollisionPainter>().brush.Color = ThisSprite.color;
 
             //}インク排出してその色も出したかった
-            rb.drag = 0.3f;//これで空気抵抗とってる　
+            rb.drag = 0.4f;//これで空気抵抗とってる　
                            //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
                            //あとでここに排出書き足す→べつ
                            //ぶつかったときの処理をどこでかくか微妙
+                           //常に上向きに力かかってるから意味がない
+            force = 450f;
+
 
         }
 
