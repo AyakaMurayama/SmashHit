@@ -1320,6 +1320,7 @@ MonoBehaviour:
   - {fileID: 1730251590357530, guid: b456664956c1146a8862dfa5661eabab, type: 2}
   - {fileID: 1874333755095596, guid: 2e4549fa9f97f4df9927cfaaf58dac86, type: 2}
   level: {fileID: 1798687897101952, guid: 6c250857d249c4882ab2270076e59cd8, type: 2}
+  en: {fileID: 1270307822406282, guid: ae3a714acc78544728e5e983a0218a06, type: 2}
   box1: {fileID: 1066583000}
   box2: {fileID: 1940165558}
   box3: {fileID: 1998768883}

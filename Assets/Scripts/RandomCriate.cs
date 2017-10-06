@@ -13,9 +13,10 @@ public class RandomCriate : MonoBehaviour
     public GameObject[] objselect;
     public GameObject[] ink;
     public GameObject level;
+    public GameObject en;
 
-    int number, numberink;
-    Vector2 objpos, inkpos, levelpos;
+    int number, numberink, numn;
+    Vector2 objpos, inkpos, levelpos, enpos;
 
     public GameObject box1;
     public GameObject box2;
@@ -91,6 +92,17 @@ public class RandomCriate : MonoBehaviour
             inkpos = new Vector2(inkMunsx[randomIndex], inkMunsy[randomIndex]);
             Instantiate(ink[numberink], inkpos, transform.rotation);
 
+        }
+        numn = Random.Range(1, 3); //回す数
+        List<float> enNums = new List<float>() { 10f, 18f, 26f }; //ガラガラの中身
+
+        for (int i = 0; i < numn; i++)
+        {
+            int randomIndex = Random.Range(0, enNums.Count);
+            Debug.Log(enNums[randomIndex]);
+            enNums.Remove(randomIndex);
+            enpos = new Vector2(Random.Range(-2.5f, 2.0f), enNums[randomIndex]);
+            Instantiate(en, enpos, transform.rotation);
         }
 
         for (int k = 0; k < levely.Length; k++)

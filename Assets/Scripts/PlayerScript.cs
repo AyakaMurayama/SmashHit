@@ -139,6 +139,7 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.CompareTag("level"))
         {
             count++;
+            Destroy(other);
         }
     }
 
