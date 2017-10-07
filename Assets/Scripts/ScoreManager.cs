@@ -33,22 +33,25 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     void Update()
 
     {
-
-
-        time -= Time.deltaTime;
-        //timetext.text = time.ToString("f2");
-
-        if (time < 0.03f)
+        if (SceneManager.GetActiveScene().name == "main")
         {
-            scenem = true;
-            scorem = GameObject.Find("testplayer").GetComponent<PlayerScript>().count;
-            timetext = null;
-            SceneManager.LoadScene("End");
 
+            time -= Time.deltaTime;
+            //timetext.text = time.ToString("f2");
+
+            if (time < 0.03f)
+            {
+                scenem = true;
+                scorem = GameObject.Find("testplayer").GetComponent<PlayerScript>().count;
+                timetext = null;
+                SceneManager.LoadScene("End");
+
+            }
         }
         if (scenem == true)
         {
             time = 30.0f;
+            scenem = false;
         }
     }
 }
