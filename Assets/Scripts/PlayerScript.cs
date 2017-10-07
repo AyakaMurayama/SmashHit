@@ -17,9 +17,11 @@ public class PlayerScript : MonoBehaviour
     float red, green, blue;
     float inktime = 15f;
 
-    int count = 0;
+    public int count = 0;
 
     public float force = 500f;
+
+    AudioSource inksound;
 
     Material playermaterial;
     Material inkmaterial;
@@ -45,6 +47,7 @@ public class PlayerScript : MonoBehaviour
 
         stagetex = GameObject.Find("stagetx").GetComponent<Text>();
         stagetex.text = "Stage:0";
+        inksound = GetComponent<AudioSource>();
 
         //inkmaterial = colorss.GetComponent<CollisionPainter>().GetComponent<MeshRenderer>().material.color;
         //なおす！
@@ -62,7 +65,8 @@ public class PlayerScript : MonoBehaviour
 
         Vector2 vec = new Vector2(x, y).normalized;
 
-        float rot = Mathf.Atan2(vec.y, vec.x) * 180 / Mathf.PI;
+        float rot = Mathf.Atan2(vec.y, vec.x) * 180 / Mathf.PI;//変数の宣言場所フィールドの被ってるけど表示できない
+
         if (rot > 180) rot -= 360;
         if (rot < -180) rot += 360;
 
@@ -93,8 +97,18 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Debug.Log(rb.drag);
+
+
         stagetex.text = "Stage:" + count.ToString();
     }
+
+
+    public int GetCount()
+    {
+        return count;
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         touch = true;
@@ -113,6 +127,8 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.CompareTag("ink"))
         {
+            //PlayOneShot(inksound);
+
             ink = true;
             //GetComponentInChildren<CollisionPainter>().enabled = true;
             Debug.Log("getink");
@@ -137,7 +153,7 @@ public class PlayerScript : MonoBehaviour
                            //あとでここに排出書き足す→べつ
                            //ぶつかったときの処理をどこでかくか微妙
                            //常に上向きに力かかってるから意味がない
-            force = 450f;
+            force = 400f;
 
 
         }
