@@ -21,6 +21,6 @@ public class SceneManagement04 : MonoBehaviour
     public void ClickRank()
     {
         SceneManager.LoadScene("Rank");
-        GameObject.Find("ScoreManager").GetComponent<Score>().getrank();
+
     }
 }

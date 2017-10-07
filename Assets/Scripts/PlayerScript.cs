@@ -29,6 +29,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject player;
 
     public Text stagetex = null;
+    Text timetext;
 
     // Use this for initialization
     void Start()
@@ -48,6 +49,8 @@ public class PlayerScript : MonoBehaviour
         stagetex = GameObject.Find("stagetx").GetComponent<Text>();
         stagetex.text = "Stage:0";
         inksound = GetComponent<AudioSource>();
+
+        timetext = GameObject.Find("timetx").GetComponent<Text>();
 
         //inkmaterial = colorss.GetComponent<CollisionPainter>().GetComponent<MeshRenderer>().material.color;
         //なおす！
@@ -100,6 +103,7 @@ public class PlayerScript : MonoBehaviour
 
 
         stagetex.text = "Stage:" + count.ToString();
+        timetext.text = GameObject.Find("ScoreManager").GetComponent<ScoreManager>().time.ToString("f2");
     }
 
 

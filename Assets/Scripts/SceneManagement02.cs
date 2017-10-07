@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class SceneManagement02 : MonoBehaviour
 {
-    Text timetext;
-    float time = 30.0f;
+
+    public float time = 30.0f;
+    public bool end = false;
 
     // Use this for initialization
     void Start()
     {
-        timetext = GetComponent<Text>();
+
 
     }
 
@@ -20,10 +21,11 @@ public class SceneManagement02 : MonoBehaviour
     void Update()
     {
         time -= Time.deltaTime;
-        timetext.text = time.ToString("f2");
+        //timetext.text = time.ToString("f2");
 
         if (time < 0.03f)
         {
+            end = false;
             SceneManager.LoadScene("End");
         }
 

@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
+public class TimeManager : SingletonMonoBehaviour<ScoreManager>
 {
 
     // Use this for initialization
 
-    public int scorem;
-    Text timetext;
+    //Text timetext;
     public float time = 30.0f;
     bool scenem = false;
 
@@ -24,8 +23,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 
     void Start()
     {
-        scorem = GameObject.Find("testplayer").GetComponent<PlayerScript>().count;
-        timetext = GameObject.Find("timetx").GetComponent<Text>();
+        //timetext = GameObject.Find("timetx").GetComponent<Text>();
 
     }
 
@@ -34,15 +32,12 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 
     {
 
-
         time -= Time.deltaTime;
         //timetext.text = time.ToString("f2");
 
         if (time < 0.03f)
         {
-            scenem = true;
-            scorem = GameObject.Find("testplayer").GetComponent<PlayerScript>().count;
-            timetext = null;
+            //scenem = true;
             SceneManager.LoadScene("End");
 
         }
