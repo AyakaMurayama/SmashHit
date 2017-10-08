@@ -4,6 +4,8 @@ using UnityEngine;
 using Es.InkPainter.Sample;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using System;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -22,8 +24,6 @@ public class PlayerScript : MonoBehaviour
 
     public float force = 500f;
 
-    AudioSource inksound;
-
     Material playermaterial;
     Material inkmaterial;
 
@@ -40,7 +40,7 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //rrb = this.GetComponent<Rigidbody2D>().mass;重さ
         //rb.bodyType = RigidbodyType2D.Dynamic;typeと普通のは違う
-        playermaterial = GetComponent<TrailRenderer>().material;
+        //playermaterial = GetComponent<TrailRenderer>().material;
         player = this.gameObject;
 
         GameObject colorss = gameObject.transform.Find("color").gameObject;
@@ -49,7 +49,6 @@ public class PlayerScript : MonoBehaviour
 
         stagetex = GameObject.Find("stagetx").GetComponent<Text>();
         stagetex.text = "Stage:0";
-        inksound = GetComponent<AudioSource>();
 
         if ((SceneManager.GetActiveScene().name == "main"))
         {
@@ -60,6 +59,8 @@ public class PlayerScript : MonoBehaviour
         //なおす！
 
         //GetComponent<MeshRenderer>().brush.Color;
+
+        AudioManager.Instance.PlayBGM("bgmpp");
     }
 
     // Update is called once per frame
@@ -138,7 +139,7 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.CompareTag("ink"))
         {
-            //PlayOneShot(inksound);
+            AudioManager.Instance.PlaySE("water-drop2");
 
             ink = true;
             //GetComponentInChildren<CollisionPainter>().enabled = true;
@@ -148,7 +149,7 @@ public class PlayerScript : MonoBehaviour
             SpriteRenderer InkSprite = other.gameObject.GetComponent<SpriteRenderer>();
             //Debug.Log(InkSprite.color);
             ThisSprite.color = InkSprite.color;
-            playermaterial.color = ThisSprite.color;
+            //playermaterial.color = ThisSprite.color;
 
             GetComponentInChildren<CollisionPainter>().brush.Color = ThisSprite.color;
             //Debug.Log(ThisSprite.color);

@@ -72,22 +72,26 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 
     public void Ranking()
     {
-        if (SceneManager.GetActiveScene().name == "Rank" && rank == true)
+        if (SceneManager.GetActiveScene().name == "End" && rank == true)
         {
-            highscoretx = GameObject.Find("Score").GetComponent<Text>();
             score = scorem;
             Debug.Log(score);
             // キーを使って値を取得
             // キーがない場合は第二引数の値を取得
 
             ranklist.Add(score);
+            rank = false;
             //highScore = PlayerPrefs.GetInt(highScoreKey, 0);
 
             //foreach (var x in ranklist)
             //{
             //    Debug.Log(x);
             //}
+        }
 
+        if (SceneManager.GetActiveScene().name == "Rank")
+        {
+            highscoretx = GameObject.Find("Score").GetComponent<Text>();
             ranklist = ranklist.OrderByDescending(score => score).ToList();//(int かfloatとかの要素を取り出してる　pow(x,p); pでなんじょう
             Debug.Log("--------------");
             Debug.Log(ranklist[0]);
