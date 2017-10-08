@@ -22,7 +22,7 @@ public class PlayerScript : MonoBehaviour
 
     public int count = 0;
 
-    public float force = 400f;
+    public float force = 300f;
 
     Material playermaterial;
     Material inkmaterial;
@@ -91,19 +91,23 @@ public class PlayerScript : MonoBehaviour
                 touch = false;
             }
         }
-        if (ink == true && rb.drag >= 0.05f && force <= 400f)
+        //if (ink == true && (rb.drag >= 0.05f || force <= 400f))
+        if (ink == true)
         {
-            rb.drag -= 0.03f * Time.deltaTime; //ここで排出している予定　deltatimeよりほんとは距離でとりたい
+            //rb.drag -= 0.03f * Time.deltaTime; //ここで排出している予定　deltatimeよりほんとは距離でとりたい
             //バウンスの値を型にいれるほうほうがわからない
             ThisSprite.color += new Color(red + 0.5f / 255f, green + 0.5f / 255f, blue + 0.5f / 255f, 1);
-            force += 1f;
+            if (force <= 500f)
+            {
+                force += 1.5f;
+            }
             //Debug.Log(ThisSprite.color);
             //if (ThisSprite.color.r >= 0.01f || ThisSprite.color.g >= 0.01f || ThisSprite.color.b >= 0.01f)
             //{
             //    GetComponentInChildren<CollisionPainter>().brush.Color = new Color(1, 1, 1, 0);
             //}
         }
-        if (force >= 400f)
+        if (force >= 500f)
         {
 
             ink = false;
@@ -165,11 +169,11 @@ public class PlayerScript : MonoBehaviour
             //    GetComponentInChildren<CollisionPainter>().brush.Color = ThisSprite.color;
 
             //}インク排出してその色も出したかった
-            rb.drag = 0.4f;//これで空気抵抗とってる　
-                           //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
-                           //あとでここに排出書き足す→べつ
-                           //ぶつかったときの処理をどこでかくか微妙
-                           //常に上向きに力かかってるから意味がない
+            // rb.drag = 0.4f;//これで空気抵抗とってる　
+            //GetComponent<Collider2D>().sharedMaterial.bounciness = 0.8f;
+            //あとでここに排出書き足す→べつ
+            //ぶつかったときの処理をどこでかくか微妙
+            //常に上向きに力かかってるから意味がない
             force = 250f;
 
 
