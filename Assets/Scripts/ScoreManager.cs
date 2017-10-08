@@ -24,6 +24,9 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     bool rank = false;
 
 
+    Text endscore;
+    //Text endhightx;
+
     protected override void Awake()//protected publicとかprivateとかかえるなよってこと override 同時？に動く？継承元と動く
     {
         base.Awake();
@@ -34,7 +37,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     void Start()
     {
         scorem = GameObject.Find("testplayer").GetComponent<PlayerScript>().count;
-        timetext = GameObject.Find("timetx").GetComponent<Text>();
+        //timetext = GameObject.Find("timetx").GetComponent<Text>();
 
 
         //GameObject.Find("ScoreManager").GetComponent<Score>().getrank();
@@ -53,9 +56,10 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 
             if (time < 0.03f)
             {
+                timetext = GameObject.Find("timetx").GetComponent<Text>();
                 scenem = true;
                 scorem = GameObject.Find("testplayer").GetComponent<PlayerScript>().count;
-                timetext = null;
+                timetext.text = scorem.ToString();
                 rank = true;
                 SceneManager.LoadScene("End");
 
@@ -68,6 +72,16 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         }
 
         Ranking();
+
+
+        if (SceneManager.GetActiveScene().name == "End")
+        {
+            endscore = GameObject.Find("endscore").GetComponent<Text>();
+            //endhightx = GameObject.Find("endhigh").GetComponent<Text>(); なおす
+            endscore.text = "SCORE :" + scorem.ToString();
+
+
+        }
     }
 
     public void Ranking()
@@ -96,7 +110,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
             Debug.Log("--------------");
             Debug.Log(ranklist[0]);
             Debug.Log("--------------");
-            highscoretx.text = ranklist[0].ToString() + "\n" + ranklist[1] + "\n" + ranklist[2].ToString() + "\n" + ranklist[3].ToString() + "\n" + ranklist[4].ToString() + "\n" + ranklist[5].ToString();
+            highscoretx.text = "stage" + ranklist[0].ToString() + "\n" + "stage" + ranklist[1] + "\n" + "stage" + ranklist[2].ToString() + "\n" + "stage" + ranklist[3].ToString() + "\n" + "stage" + ranklist[4].ToString() + "\n" + "stage" + ranklist[5].ToString();
             rank = false;
 
         }
