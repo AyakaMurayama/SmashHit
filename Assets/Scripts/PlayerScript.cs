@@ -22,7 +22,7 @@ public class PlayerScript : MonoBehaviour
 
     public int count = 0;
 
-    public float force = 500f;
+    public float force = 400f;
 
     Material playermaterial;
     Material inkmaterial;
@@ -87,11 +87,11 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                rb.AddForce(new Vector2(0, 300f));
+                rb.AddForce(new Vector2(0, 200f));
                 touch = false;
             }
         }
-        if (ink == true && rb.drag >= 0.05f && force <= 500f)
+        if (ink == true && rb.drag >= 0.05f && force <= 400f)
         {
             rb.drag -= 0.03f * Time.deltaTime; //ここで排出している予定　deltatimeよりほんとは距離でとりたい
             //バウンスの値を型にいれるほうほうがわからない
@@ -102,6 +102,11 @@ public class PlayerScript : MonoBehaviour
             //{
             //    GetComponentInChildren<CollisionPainter>().brush.Color = new Color(1, 1, 1, 0);
             //}
+        }
+        if (force >= 400f)
+        {
+
+            ink = false;
         }
 
         //Debug.Log(rb.drag);
@@ -165,7 +170,7 @@ public class PlayerScript : MonoBehaviour
                            //あとでここに排出書き足す→べつ
                            //ぶつかったときの処理をどこでかくか微妙
                            //常に上向きに力かかってるから意味がない
-            force = 400f;
+            force = 250f;
 
 
         }
@@ -182,7 +187,15 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))//ぶつかってるときだったらいつもより跳ねる
         {
-            rb.AddForce(new Vector2(0, 300f));
+            if (ink == true)
+            {
+                rb.AddForce(new Vector2(0, 50f));
+            }
+            if (ink == false)
+            {
+                rb.AddForce(new Vector2(0, 10f));
+
+            }
         }
 
     }
