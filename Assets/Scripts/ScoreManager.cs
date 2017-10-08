@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 
 public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 {
@@ -13,6 +15,13 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     Text timetext;
     public float time = 30.0f;
     bool scenem = false;
+
+    Text highscoretx;
+    private int highScore;
+    public int score;
+    private List<int> ranklist = new List<int>() { 0, 0, 0, 0, 0 };
+    private string highScoreKey = "highScore";
+    bool rank = false;
 
 
     protected override void Awake()//protected publicとかprivateとかかえるなよってこと override 同時？に動く？継承元と動く
@@ -26,6 +35,9 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     {
         scorem = GameObject.Find("testplayer").GetComponent<PlayerScript>().count;
         timetext = GameObject.Find("timetx").GetComponent<Text>();
+
+
+        //GameObject.Find("ScoreManager").GetComponent<Score>().getrank();
 
     }
 
@@ -44,6 +56,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
                 scenem = true;
                 scorem = GameObject.Find("testplayer").GetComponent<PlayerScript>().count;
                 timetext = null;
+                rank = true;
                 SceneManager.LoadScene("End");
 
             }
@@ -52,6 +65,36 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         {
             time = 30.0f;
             scenem = false;
+        }
+
+        Ranking();
+    }
+
+    public void Ranking()
+    {
+        if (SceneManager.GetActiveScene().name == "Rank" && rank == true)
+        {
+            highscoretx = GameObject.Find("Score").GetComponent<Text>();
+            score = scorem;
+            Debug.Log(score);
+            // キーを使って値を取得
+            // キーがない場合は第二引数の値を取得
+
+            ranklist.Add(score);
+            //highScore = PlayerPrefs.GetInt(highScoreKey, 0);
+
+            //foreach (var x in ranklist)
+            //{
+            //    Debug.Log(x);
+            //}
+
+            ranklist = ranklist.OrderByDescending(score => score).ToList();//(int かfloatとかの要素を取り出してる　pow(x,p); pでなんじょう
+            Debug.Log("--------------");
+            Debug.Log(ranklist[0]);
+            Debug.Log("--------------");
+            highscoretx.text = ranklist[0].ToString() + "\n" + ranklist[1] + "\n" + ranklist[2].ToString() + "\n" + ranklist[3].ToString() + "\n" + ranklist[4].ToString() + "\n" + ranklist[5].ToString();
+            rank = false;
+
         }
     }
 }

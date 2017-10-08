@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Es.InkPainter.Sample;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -50,7 +51,10 @@ public class PlayerScript : MonoBehaviour
         stagetex.text = "Stage:0";
         inksound = GetComponent<AudioSource>();
 
-        timetext = GameObject.Find("timetx").GetComponent<Text>();
+        if ((SceneManager.GetActiveScene().name == "main"))
+        {
+            timetext = GameObject.Find("timetx").GetComponent<Text>();
+        }
 
         //inkmaterial = colorss.GetComponent<CollisionPainter>().GetComponent<MeshRenderer>().material.color;
         //なおす！
@@ -103,7 +107,10 @@ public class PlayerScript : MonoBehaviour
 
 
         stagetex.text = "Stage:" + count.ToString();
-        timetext.text = GameObject.Find("ScoreManager").GetComponent<ScoreManager>().time.ToString("f2");
+        if ((SceneManager.GetActiveScene().name == "main"))
+        {
+            timetext.text = GameObject.Find("ScoreManager").GetComponent<ScoreManager>().time.ToString("f2");
+        }
     }
 
 
@@ -135,16 +142,16 @@ public class PlayerScript : MonoBehaviour
 
             ink = true;
             //GetComponentInChildren<CollisionPainter>().enabled = true;
-            Debug.Log("getink");
+            //Debug.Log("getink");
             player.AddComponent<TrailRenderer>();
 
             SpriteRenderer InkSprite = other.gameObject.GetComponent<SpriteRenderer>();
-            Debug.Log(InkSprite.color);
+            //Debug.Log(InkSprite.color);
             ThisSprite.color = InkSprite.color;
             playermaterial.color = ThisSprite.color;
 
             GetComponentInChildren<CollisionPainter>().brush.Color = ThisSprite.color;
-            Debug.Log(ThisSprite.color);
+            //Debug.Log(ThisSprite.color);
 
             //if(inktime >= 0){
             //for (int i = 15; i > 0; i--)
