@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 
 public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
@@ -27,6 +28,10 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     Text endscore;
     //Text endhightx;
 
+    Button button1;
+    Button buttonretry;
+    Button buttonrank;
+
     protected override void Awake()//protected publicとかprivateとかかえるなよってこと override 同時？に動く？継承元と動く
     {
         base.Awake();
@@ -48,6 +53,14 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     void Update()
 
     {
+        if (SceneManager.GetActiveScene().name == "Start")
+        {
+            button1 = GameObject.Find("Button").GetComponent<Button>();
+            UnityAction onClickAction = () => SceneManager.LoadScene("main");
+            button1.onClick.AddListener(onClickAction);
+        }
+
+
         if (SceneManager.GetActiveScene().name == "main")
         {
 
@@ -81,7 +94,17 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
             endscore.text = "SCORE :" + scorem.ToString();
 
 
+            buttonretry = GameObject.Find("Retry").GetComponent<Button>();
+            UnityAction onClickAction = () => SceneManager.LoadScene("main");
+            buttonretry.onClick.AddListener(onClickAction);
+
+            buttonrank = GameObject.Find("Button (1)").GetComponent<Button>();
+            UnityAction onClickActionr = () => SceneManager.LoadScene("Rank");
+            buttonrank.onClick.AddListener(onClickActionr);
+
+
         }
+
     }
 
     public void Ranking()
