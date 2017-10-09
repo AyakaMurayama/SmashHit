@@ -32,6 +32,9 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     Button buttonretry;
     Button buttonrank;
 
+    public GameObject panel;
+    public Text paneltx;
+
     protected override void Awake()//protected publicとかprivateとかかえるなよってこと override 同時？に動く？継承元と動く
     {
         base.Awake();
@@ -47,6 +50,14 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 
         //GameObject.Find("ScoreManager").GetComponent<Score>().getrank();
 
+        if (SceneManager.GetActiveScene().name == "Start")
+        {
+            panel = GameObject.Find("Loadingp");
+            panel.SetActive(false);
+            paneltx = GameObject.Find("Loading").GetComponent<Text>();
+            paneltx.text = "";
+        }
+
     }
 
     // Update is called once per frame
@@ -57,6 +68,10 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         {
             button1 = GameObject.Find("Button").GetComponent<Button>();
             UnityAction onClickAction = () => SceneManager.LoadScene("main");
+            UnityAction onClickActionpanei = () => panel.SetActive(true);
+            UnityAction onClickActiontx = () => paneltx.text = "NowLoading...";
+            button1.onClick.AddListener(onClickActionpanei);
+            button1.onClick.AddListener(onClickActiontx);
             button1.onClick.AddListener(onClickAction);
         }
 

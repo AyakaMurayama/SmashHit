@@ -80,6 +80,6 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ControlColor: {r: 0.9558824, g: 0.77314013, b: 0.7873327, a: 1}
+    - _ControlColor: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PaintUV: {r: 0.4266134, g: 0.35342702, b: 0, a: 0}
+    - _PaintUV: {r: 0.50728536, g: 0.9648561, b: 0, a: 0}

@@ -148,7 +148,7 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.CompareTag("ink"))
         {
-            AudioManager.Instance.PlaySE("water-drop2");
+            AudioManager.Instance.PlaySE("wsound");
 
             ink = true;
             //GetComponentInChildren<CollisionPainter>().enabled = true;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ink
   - level
+  - Loading
   layers:
   - Default
   - TransparentFX
