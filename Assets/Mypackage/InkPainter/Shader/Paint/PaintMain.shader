@@ -9,6 +9,8 @@ Shader "Es/InkPainter/PaintMain"{
 		[HideInInspector]
 		_BrushScale("BrushScale", FLOAT) = 0.1
 		[HideInInspector]
+		_BrushRotate("Rotate", FLOAT) = 0
+		[HideInInspector]
 		_ControlColor("ControlColor", VECTOR) = (0,0,0,0)
 		[HideInInspector]
 		_PaintUV("Hit UV Position", VECTOR) = (0,0,0,0)
@@ -20,7 +22,7 @@ Shader "Es/InkPainter/PaintMain"{
 	SubShader{
 		CGINCLUDE
 
-#include "Assets/InkPainter/Shader/Lib/InkPainterFoundation.cginc"
+#include "../Lib/InkPainterFoundation.cginc"
 
 			struct app_data {
 				float4 vertex:POSITION;
@@ -36,6 +38,7 @@ Shader "Es/InkPainter/PaintMain"{
 			sampler2D _Brush;
 			float4 _PaintUV;
 			float _BrushScale;
+			float _BrushRotate;
 			float4 _ControlColor;
 		ENDCG
 
@@ -57,8 +60,8 @@ Shader "Es/InkPainter/PaintMain"{
 				float4 base = SampleTexture(_MainTex, i.uv.xy);
 				float4 brushColor = float4(1, 1, 1, 1);
 
-				if (IsPaintRange(i.uv, _PaintUV, h)) {
-					float2 uv = CalcBrushUV(i.uv, _PaintUV, h);
+				if (IsPaintRange(i.uv, _PaintUV, h, _BrushRotate)) {
+					float2 uv = CalcBrushUV(i.uv, _PaintUV, h, _BrushRotate);
 					brushColor = SampleTexture(_Brush, uv.xy);
 
 					return INK_PAINTER_COLOR_BLEND(base, brushColor, _ControlColor);

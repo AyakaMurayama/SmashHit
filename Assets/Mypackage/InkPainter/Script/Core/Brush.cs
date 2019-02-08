@@ -114,6 +114,9 @@ namespace Es.InkPainter
 		[SerializeField, Range(0, 1)]
 		private float brushScale = 0.1f;
 
+		[SerializeField, Range(0, 360)]
+		private float rotateAngle = 0;
+
 		[SerializeField, Range(0, 1)]
 		private float brushNormalBlend = 0.1f;
 
@@ -167,6 +170,15 @@ namespace Es.InkPainter
 		{
 			get { return Mathf.Clamp01(brushScale); }
 			set { brushScale = Mathf.Clamp01(value); }
+		}
+
+		/// <summary>
+		/// Rotate angle of the brush.
+		/// </summary>
+		public float RotateAngle
+		{
+			get { return rotateAngle; }
+			set { rotateAngle = value; }
 		}
 
 		/// <summary>
@@ -230,6 +242,12 @@ namespace Es.InkPainter
 			BrushTexture = brushTex;
 			Scale = scale;
 			Color = color;
+		}
+
+		public Brush(Texture brushTex, float scale, Color color, ColorBlendType colorBlending)
+		  : this(brushTex, scale, color)
+		{
+			ColorBlending = colorBlending;
 		}
 
 		public Brush(Texture brushTex, float scale, Color color, Texture normalTex, float normalBlend)

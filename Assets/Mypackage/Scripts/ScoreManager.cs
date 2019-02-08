@@ -31,12 +31,31 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     Button button1;
     Button buttonretry;
     Button buttonrank;
+    Button buttonhome;
 
     public GameObject panel;
     public Text paneltx;
 
+    static ScoreManager _instance = null;
+
+    static ScoreManager instance
+    {
+
+        get
+        {
+            return _instance ?? (_instance = FindObjectOfType<ScoreManager>());
+        }
+    }
+
+
     protected override void Awake()//protected publicとかprivateとかかえるなよってこと override 同時？に動く？継承元と動く
     {
+
+        if (this != instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
         base.Awake();
         DontDestroyOnLoad(this);
     }
@@ -113,9 +132,14 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
             UnityAction onClickAction = () => SceneManager.LoadScene("main");
             buttonretry.onClick.AddListener(onClickAction);
 
-            buttonrank = GameObject.Find("Button (1)").GetComponent<Button>();
+            buttonrank = GameObject.Find("Rank").GetComponent<Button>();
             UnityAction onClickActionr = () => SceneManager.LoadScene("Rank");
             buttonrank.onClick.AddListener(onClickActionr);
+
+            buttonhome = GameObject.Find("Home").GetComponent<Button>();
+            UnityAction onClickActionrr = () => SceneManager.LoadScene("Start");
+            buttonrank.onClick.AddListener(onClickActionrr);
+
 
 
         }
@@ -148,7 +172,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
             Debug.Log("--------------");
             Debug.Log(ranklist[0]);
             Debug.Log("--------------");
-            highscoretx.text = "stage" + ranklist[0].ToString() + "\n" + "stage" + ranklist[1] + "\n" + "stage" + ranklist[2].ToString() + "\n" + "stage" + ranklist[3].ToString() + "\n" + "stage" + ranklist[4].ToString() + "\n" + "stage" + ranklist[5].ToString();
+            highscoretx.text = "stage" + ":" + ranklist[0].ToString() + "\n" + "stage" + ":" + ranklist[1] + "\n" + "stage" + ":" + ranklist[2].ToString() + "\n" + "stage" + ":" + ranklist[3].ToString() + "\n" + "stage" + ":" + ranklist[4].ToString() + "\n" + "stage" + ":" + ranklist[5].ToString();
             rank = false;
 
         }

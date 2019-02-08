@@ -11,6 +11,8 @@ Shader "Es/InkPainter/PaintHeight"{
 		[HideInInspector]
 		_BrushScale("BrushScale", FLOAT) = 0.1
 		[HideInInspector]
+		_BrushRotate("Rotate", FLOAT) = 0
+		[HideInInspector]
 		_PaintUV("Hit UV Position", VECTOR) = (0,0,0,0)
 		[HideInInspector]
 		_HeightBlend("HeightBlend", FLOAT) = 1
@@ -24,7 +26,7 @@ Shader "Es/InkPainter/PaintHeight"{
 	SubShader{
 		CGINCLUDE
 
-#include "Assets/InkPainter/Shader/Lib/InkPainterFoundation.cginc"
+#include "../Lib/InkPainterFoundation.cginc"
 
 			struct app_data {
 				float4 vertex:POSITION;
@@ -41,6 +43,7 @@ Shader "Es/InkPainter/PaintHeight"{
 			sampler2D _BrushHeight;
 			float4 _PaintUV;
 			float _BrushScale;
+			float _BrushRotate;
 			float _HeightBlend;
 			float4 _Color;
 		ENDCG
@@ -62,12 +65,12 @@ Shader "Es/InkPainter/PaintHeight"{
 				float h = _BrushScale;
 				float4 base = SampleTexture(_MainTex, i.uv.xy);
 
-				if (IsPaintRange(i.uv, _PaintUV, h)) {
-					float2 uv = CalcBrushUV(i.uv, _PaintUV, h);
+				if (IsPaintRange(i.uv, _PaintUV, h, _BrushRotate)) {
+					float2 uv = CalcBrushUV(i.uv, _PaintUV, h, _BrushRotate);
 					float4 brushColor = SampleTexture(_Brush, uv.xy);
 
 					if (brushColor.a > 0) {
-						float2 heightUV = CalcBrushUV(i.uv, _PaintUV, h);
+						float2 heightUV = CalcBrushUV(i.uv, _PaintUV, h, _BrushRotate);
 						float4 height = SampleTexture(_BrushHeight, heightUV.xy);
 #if INK_PAINTER_HEIGHT_BLEND_COLOR_RGB_HEIGHT_A
 						height.a = 0.299 * height.r + 0.587 * height.g + 0.114 * height.b;

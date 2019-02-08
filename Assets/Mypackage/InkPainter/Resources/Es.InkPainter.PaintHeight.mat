@@ -92,4 +92,4 @@ Material:
     m_Colors:
     - _Color: {r: 0.42303726, g: 0.9044118, b: 0.3591047, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PaintUV: {r: 0.36302507, g: 0.41643012, b: 0, a: 0}
+    - _PaintUV: {r: 0.23100048, g: 0.47293818, b: 0, a: 0}

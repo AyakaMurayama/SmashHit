@@ -24,10 +24,14 @@ namespace Es.InkPainter.Effective
 		private const string TARGET = "_TargetTex";
 		private const string CLIP_SCALE = "_ClipScale";
 		private const string CLIP_UV = "_ClipUV";
+		private const string ROTATE = "_Rotate";
 
 		private const string WM_CLAMP = "WRAP_MODE_CLAMP";
 		private const string WM_REPEAT = "WRAP_MODE_REPEAT";
 		private const string WM_CLIP = "WRAP_MODE_CLIP";
+
+		private const string ALPHA_REPLACE = "ALPHA_REPLACE";
+		private const string ALPHA_NOT_REPLACE = "ALPHA_NOT_REPLACE";
 
 		private static Material grabAreaMaterial = null;
 
@@ -42,12 +46,15 @@ namespace Es.InkPainter.Effective
 		/// <param name="clipScale">The ratio of the size of the clip texture to the target texture.</param>
 		/// <param name="grabTargetTexture">Texture of clipping target.</param>
 		/// <param name="targetUV">UV coordinates on the target texture.</param>
+		/// <param name="rotateAngle">Clip texture rotate angle.(degree)</param>
+		/// <param name="wrapMpde">Texture wrap mode.</param>
 		/// <param name="dst">Store cropped texture.</param>
-		public static void Clip(Texture clipTexture, float clipScale, Texture grabTargetTexture, Vector2 targetUV, GrabTextureWrapMode wrapMode, RenderTexture dst)
+		/// <param name="replaceAlpha">Replace to clip textures alpha</param>
+		public static void Clip(Texture clipTexture, float clipScale, Texture grabTargetTexture, Vector2 targetUV,float rotateAngle, GrabTextureWrapMode wrapMode, RenderTexture dst, bool replaceAlpha = true)
 		{
 			if(grabAreaMaterial == null)
 				InitGrabAreaMaterial();
-			SetGrabAreaProperty(clipTexture, clipScale, grabTargetTexture, targetUV, wrapMode);
+			SetGrabAreaProperty(clipTexture, clipScale, grabTargetTexture, targetUV, rotateAngle, wrapMode, replaceAlpha);
 			var tmp = RenderTexture.GetTemporary(clipTexture.width, clipTexture.height, 0);
 			Graphics.Blit(clipTexture, tmp, grabAreaMaterial);
 			Graphics.Blit(tmp, dst);
@@ -63,7 +70,7 @@ namespace Es.InkPainter.Effective
 		/// </summary>
 		private static void InitGrabAreaMaterial()
 		{
-			grabAreaMaterial = Resources.Load<Material>(GRAB_AREA_MATERIAL);
+			grabAreaMaterial = new Material(Resources.Load<Material>(GRAB_AREA_MATERIAL));
 		}
 
 		/// <summary>
@@ -74,11 +81,13 @@ namespace Es.InkPainter.Effective
 		/// <param name="grabTarget">Texture of clipping target.</param>
 		/// <param name="targetUV">UV coordinates on the target texture.</param>
 		/// <param name="wrapMpde">Texture wrap mode.</param>
-		private static void SetGrabAreaProperty(Texture clip, float clipScale, Texture grabTarget, Vector2 targetUV, GrabTextureWrapMode wrapMpde)
+		/// <param name="replaceAlpha">Replace to clip textures alpha</param>
+		private static void SetGrabAreaProperty(Texture clip, float clipScale, Texture grabTarget, Vector2 targetUV, float rotateAngle, GrabTextureWrapMode wrapMpde, bool replaceAlpha)
 		{
 			grabAreaMaterial.SetTexture(CLIP, clip);
 			grabAreaMaterial.SetTexture(TARGET, grabTarget);
 			grabAreaMaterial.SetFloat(CLIP_SCALE, clipScale);
+			grabAreaMaterial.SetFloat(ROTATE, rotateAngle);
 			grabAreaMaterial.SetVector(CLIP_UV, targetUV);
 
 			foreach(var key in grabAreaMaterial.shaderKeywords)
@@ -98,6 +107,16 @@ namespace Es.InkPainter.Effective
 					break;
 
 				default:
+					break;
+			}
+
+			switch(replaceAlpha)
+			{
+				case true:
+					grabAreaMaterial.EnableKeyword(ALPHA_REPLACE);
+					break;
+				case false:
+					grabAreaMaterial.EnableKeyword(ALPHA_NOT_REPLACE);
 					break;
 			}
 		}
