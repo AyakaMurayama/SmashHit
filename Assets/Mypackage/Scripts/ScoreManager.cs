@@ -66,9 +66,9 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         scorem = GameObject.Find("testplayer").GetComponent<PlayerScript>().count;
         //timetext = GameObject.Find("timetx").GetComponent<Text>();
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
         //GameObject.Find("ScoreManager").GetComponent<Score>().getrank();
-
         if (SceneManager.GetActiveScene().name == "Start")
         {
             panel = GameObject.Find("Loadingp");
@@ -79,20 +79,39 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
+    {
+        if (scene.buildIndex == 0)
+        {
+            panel = GameObject.Find("Loadingp");
+            panel.SetActive(false);
+            paneltx = GameObject.Find("Loading").GetComponent<Text>();
+            paneltx.text = "";
+        }
+    }
+
     // Update is called once per frame
     void Update()
 
     {
         if (SceneManager.GetActiveScene().name == "Start")
         {
+            //panel = GameObject.Find("Loadingp");
+            //panel.SetActive(false);
+            //paneltx = GameObject.Find("Loading").GetComponent<Text>();
+            //paneltx.text = "";
+
             button1 = GameObject.Find("Button").GetComponent<Button>();
+
             UnityAction onClickAction = () => SceneManager.LoadScene("main");
             UnityAction onClickActionpanei = () => panel.SetActive(true);
             UnityAction onClickActiontx = () => paneltx.text = "NowLoading...";
             button1.onClick.AddListener(onClickActionpanei);
             button1.onClick.AddListener(onClickActiontx);
             button1.onClick.AddListener(onClickAction);
+
         }
+
 
 
         if (SceneManager.GetActiveScene().name == "main")
@@ -138,7 +157,8 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 
             buttonhome = GameObject.Find("Home").GetComponent<Button>();
             UnityAction onClickActionrr = () => SceneManager.LoadScene("Start");
-            buttonrank.onClick.AddListener(onClickActionrr);
+            buttonhome.onClick.AddListener(onClickActionrr);
+
 
 
 
