@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// ランキング画面からリトライする
+/// </summary>
+
 public class SceneManagement03 : MonoBehaviour
 {
 

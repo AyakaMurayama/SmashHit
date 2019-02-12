@@ -270,6 +270,7 @@ MonoBehaviour:
   force: 500
   player: {fileID: 0}
   stagetex: {fileID: 0}
+  prevPos: {x: 0, y: 0}
 --- !u!114 &143909682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1654,7 +1655,6 @@ GameObject:
   - component: {fileID: 1168262331}
   - component: {fileID: 1168262330}
   - component: {fileID: 1168262329}
-  - component: {fileID: 1168262328}
   - component: {fileID: 1168262327}
   - component: {fileID: 1168262335}
   m_Layer: 0
@@ -1751,17 +1751,6 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
---- !u!114 &1168262328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1168262326}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e27a9836a834854b1bc12e6fc0c00f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1168262329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1777,6 +1766,7 @@ MonoBehaviour:
   force: 500
   player: {fileID: 0}
   stagetex: {fileID: 0}
+  prevPos: {x: 0, y: 0}
 --- !u!114 &1168262330
 MonoBehaviour:
   m_ObjectHideFlags: 0

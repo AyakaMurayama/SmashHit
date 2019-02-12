@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// インクオブジェクトに色をつけるためのスクリプト
+/// おそらく未使用
+/// </summary>
+
 public class ColorControl : MonoBehaviour
 {
     SpriteRenderer inkSprite;

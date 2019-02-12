@@ -1,22 +1,27 @@
-﻿using UnityEngine;  
-using System.IO;  
-using System.Collections;  
-using SocialConnector;  
-using UnityEngine.UI;  
+﻿using UnityEngine;
+using System.IO;
+using System.Collections;
+using SocialConnector; //ライブラリ継承
+using UnityEngine.UI;
+
 namespace SocialConnector
 {
-  
-    public class ShareController : MonoBehaviour  
-    { 
 
-        public void Share()  
-        {  
-            StartCoroutine(_Share());  
-        }  
-      
+    /// <summary>
+    /// シェアするためのスクリプト
+    /// </summary>
+
+    public class ShareController : MonoBehaviour
+    {
+
+        public void Share()
+        {
+            StartCoroutine(_Share());  //押されたらシェアするための処理を始める
+        }
+
         public IEnumerator _Share()
         {
-            string imgPath = Application.persistentDataPath + "/image.png";
+            string imgPath = Application.persistentDataPath + "/image.png";///image.pngという名前で保存
 
             // 前回のデータを削除
             File.Delete(imgPath);
@@ -33,7 +38,7 @@ namespace SocialConnector
 
             // 投稿する
             string tweetText = "今回のスコアはこれ！";
-            string tweetURL = "";//入れる
+            string tweetURL = "";//後々サイト作ったら入れる
             SocialConnector.Share(tweetText, tweetURL, imgPath);
         }
     }
